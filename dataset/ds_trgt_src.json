@@ -1,5 +1,5 @@
 {
-	"name": "ds_adls2_src",
+	"name": "ds_trgt_src",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ls_adls",
@@ -10,28 +10,14 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "muqtest.csv",
-				"folderPath": "input",
+				"folderPath": "output",
 				"fileSystem": "salesproject"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
 			"quoteChar": "\""
 		},
-		"schema": [
-			{
-				"type": "String"
-			},
-			{
-				"type": "String"
-			},
-			{
-				"type": "String"
-			},
-			{
-				"type": "String"
-			}
-		]
+		"schema": []
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"
 }
