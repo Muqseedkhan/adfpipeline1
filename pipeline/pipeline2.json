@@ -44,6 +44,10 @@
 				],
 				"userProperties": [],
 				"typeProperties": {
+					"items": {
+						"value": "@activity('Get Metadata1').output.childItems",
+						"type": "Expression"
+					},
 					"activities": [
 						{
 							"name": "Copy data1",
@@ -92,11 +96,11 @@
 							},
 							"inputs": [
 								{
-									"referenceName": "ds_adls2_src",
+									"referenceName": "ds_adls_src_paramter",
 									"type": "DatasetReference",
 									"parameters": {
-										"param1": {
-											"value": "@activity('Get Metadata1').output.childItems",
+										"param2": {
+											"value": "@item().Name",
 											"type": "Expression"
 										}
 									}
