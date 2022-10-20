@@ -1,0 +1,9 @@
+{
+	"name": "adfmuqseed1",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "9c10c7d5-e722-452b-824a-0a6458c1c552",
+		"tenantId": "f695751c-caee-407b-9a9a-3791d4cf0c03"
+	}
+}
