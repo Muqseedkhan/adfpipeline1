@@ -5,12 +5,16 @@
 			"referenceName": "ls_adls",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"param3": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "testdb",
 				"folderPath": "output",
 				"fileSystem": "salesproject"
 			},

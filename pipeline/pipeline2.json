@@ -109,7 +109,13 @@
 							"outputs": [
 								{
 									"referenceName": "ds_trgt_src",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"param3": {
+											"value": "@item().Name",
+											"type": "Expression"
+										}
+									}
 								}
 							]
 						}
