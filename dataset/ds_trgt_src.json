@@ -5,6 +5,8 @@
 			"referenceName": "ls_adls",
 			"type": "LinkedServiceReference"
 		},
+
+ main
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
