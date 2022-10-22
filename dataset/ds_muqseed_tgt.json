@@ -1,0 +1,12 @@
+{
+	"name": "ds_muqseed_tgt",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_muq",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": []
+	}
+}

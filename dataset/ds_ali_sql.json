@@ -1,0 +1,32 @@
+{
+	"name": "ds_ali_sql",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_ali",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "recipe_id",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "ingredient_id",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "amount",
+				"type": "int",
+				"precision": 10
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "recipe_ingredients"
+		}
+	}
+}
