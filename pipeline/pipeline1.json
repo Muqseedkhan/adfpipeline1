@@ -22,15 +22,9 @@
 						"partitionOption": "None"
 					},
 					"sink": {
-						"type": "DelimitedTextSink",
-						"storeSettings": {
-							"type": "AzureBlobFSWriteSettings"
-						},
-						"formatSettings": {
-							"type": "DelimitedTextWriteSettings",
-							"quoteAllText": true,
-							"fileExtension": ".txt"
-						}
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false
 					},
 					"enableStaging": false,
 					"translator": {
@@ -50,7 +44,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "ds_trgt_src",
+						"referenceName": "ds_muqseed_tgt",
 						"type": "DatasetReference"
 					}
 				]
