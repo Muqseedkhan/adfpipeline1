@@ -5,10 +5,19 @@
 		"factoryName": {
 			"value": "adfmuqseed1"
 		},
-		"ls_adls_accountKey": {
+		"AzureSqlDatabase1_connectionString": {
 			"value": ""
 		},
 		"ls_AzureSqlDatabase_connectionString": {
+			"value": ""
+		},
+		"ls_adls_accountKey": {
+			"value": ""
+		},
+		"ls_ali_connectionString": {
+			"value": ""
+		},
+		"ls_muq_connectionString": {
 			"value": ""
 		},
 		"ls_adls_properties_typeProperties_url": {
