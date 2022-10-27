@@ -78,7 +78,13 @@
 				"inputs": [
 					{
 						"referenceName": "ds_ali_sql",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"Tablename": {
+								"value": "@pipeline().parameters.tablename",
+								"type": "Expression"
+							}
+						}
 					}
 				],
 				"outputs": [
@@ -89,6 +95,11 @@
 				]
 			}
 		],
+		"parameters": {
+			"tablename": {
+				"type": "string"
+			}
+		},
 		"annotations": []
 	}
 }
