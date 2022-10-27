@@ -173,7 +173,7 @@
 								"type": "DatasetReference",
 								"parameters": {
 									"Tablename": {
-										"value": "concat(@pipeline().parameters.Tablename,'_tgt')",
+										"value": "@concat(pipeline().parameters.Tablename,'_tgt')",
 										"type": "Expression"
 									}
 								}
