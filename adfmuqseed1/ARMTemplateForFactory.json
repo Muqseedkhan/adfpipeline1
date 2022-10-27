@@ -853,11 +853,6 @@
 					"elapsedTimeMetric": {},
 					"cancelAfter": {}
 				},
-				"parameters": {
-					"Tablename": {
-						"type": "string"
-					}
-				},
 				"annotations": []
 			},
 			"dependsOn": [
