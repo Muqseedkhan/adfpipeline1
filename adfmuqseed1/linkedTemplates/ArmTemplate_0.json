@@ -406,7 +406,7 @@
 								"type": "DatasetReference",
 								"parameters": {
 									"Tablename": {
-										"value": "@pipeline().parameters.Tablename",
+										"value": "concat(@pipeline().parameters.Tablename,'_tgt')",
 										"type": "Expression"
 									}
 								}
