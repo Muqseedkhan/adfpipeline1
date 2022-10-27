@@ -5,6 +5,11 @@
 			"referenceName": "ls_ali",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"Tablename": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
 		"type": "AzureSqlTable",
 		"schema": [
@@ -26,7 +31,10 @@
 		],
 		"typeProperties": {
 			"schema": "dbo",
-			"table": "recipe_ingredients"
+			"table": {
+				"value": "@dataset().Tablename",
+				"type": "Expression"
+			}
 		}
 	}
 }
