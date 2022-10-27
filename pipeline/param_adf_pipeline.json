@@ -1,6 +1,17 @@
 {
 	"name": "param_adf_pipeline",
 	"properties": {
+		"activities": [
+			{
+				"name": "Wait1",
+				"type": "Wait",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"waitTimeInSeconds": 1
+				}
+			}
+		],
 		"parameters": {
 			"param1": {
 				"type": "string"
