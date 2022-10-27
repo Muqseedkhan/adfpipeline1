@@ -1,0 +1,11 @@
+{
+	"name": "param_adf_pipeline",
+	"properties": {
+		"parameters": {
+			"param1": {
+				"type": "string"
+			}
+		},
+		"annotations": []
+	}
+}
