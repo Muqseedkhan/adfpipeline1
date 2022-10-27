@@ -100,11 +100,6 @@
 				}
 			}
 		],
-		"parameters": {
-			"Tablename": {
-				"type": "string"
-			}
-		},
 		"annotations": []
 	}
 }
