@@ -37,10 +37,14 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "ds_muqseed_tgt",
+						"referenceName": "AZURE_SQL_Param",
 						"type": "DatasetReference",
 						"parameters": {
-							"Table_Name": {
+							"Databasename": {
+								"value": "@pipeline().parameters.Databsename2",
+								"type": "Expression"
+							},
+							"ptablename": {
 								"value": "@pipeline().parameters.Tablename",
 								"type": "Expression"
 							}
@@ -49,10 +53,14 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "ds_muqseed_tgt",
+						"referenceName": "AZURE_SQL_Param",
 						"type": "DatasetReference",
 						"parameters": {
-							"Table_Name": {
+							"Databasename": {
+								"value": "@pipeline().parameters.Databsename2",
+								"type": "Expression"
+							},
+							"ptablename": {
 								"value": "@concat(pipeline().parameters.Tablename,'_tgt')",
 								"type": "Expression"
 							}
