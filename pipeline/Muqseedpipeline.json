@@ -38,13 +38,25 @@
 				"inputs": [
 					{
 						"referenceName": "ds_muqseed_tgt",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"Table_Name": {
+								"value": "@pipeline().parameters.Tablename",
+								"type": "Expression"
+							}
+						}
 					}
 				],
 				"outputs": [
 					{
 						"referenceName": "ds_muqseed_tgt",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"Table_Name": {
+								"value": "@concat(pipeline().parameters.Tablename,'_tgt')",
+								"type": "Expression"
+							}
+						}
 					}
 				]
 			}
