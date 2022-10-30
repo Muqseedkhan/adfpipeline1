@@ -37,6 +37,89 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/Muqseedpipeline')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ds_muqseed_tgt",
+								"type": "DatasetReference",
+								"parameters": {
+									"Table_Name": {
+										"value": "@pipeline().parameters.Tablename",
+										"type": "Expression"
+									}
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ds_muqseed_tgt",
+								"type": "DatasetReference",
+								"parameters": {
+									"Table_Name": {
+										"value": "@concat(pipeline().parameters.Tablename,'_tgt')",
+										"type": "Expression"
+									}
+								}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"Tablename": {
+						"type": "string"
+					},
+					"Databsename2": {
+						"type": "string"
+					}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_muqseed_tgt')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/adfmuqpipeline')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -217,6 +300,7 @@
 						"typeProperties": {
 							"source": {
 								"type": "AzureSqlSource",
+								"sqlReaderQuery": "select tablename from metadata1 ",
 								"queryTimeout": "02:00:00",
 								"partitionOption": "None"
 							},
@@ -285,7 +369,7 @@
 											"type": "DatasetReference",
 											"parameters": {
 												"Tablename": {
-													"value": "@item().Tablename",
+													"value": "@concat('dbo.',item())",
 													"type": "Expression"
 												}
 											}
@@ -365,7 +449,12 @@
 							{
 								"referenceName": "ds_muqseed_tgt",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"Table_Name": {
+										"value": "@pipeline().parameters.test",
+										"type": "Expression"
+									}
+								}
 							}
 						]
 					}
@@ -373,6 +462,11 @@
 				"policy": {
 					"elapsedTimeMetric": {},
 					"cancelAfter": {}
+				},
+				"parameters": {
+					"test": {
+						"type": "string"
+					}
 				},
 				"annotations": [],
 				"lastPublishTime": "2022-10-19T03:00:46Z"
@@ -492,7 +586,12 @@
 										{
 											"referenceName": "ds_muqseed_tgt",
 											"type": "DatasetReference",
-											"parameters": {}
+											"parameters": {
+												"Table_Name": {
+													"value": "@item()",
+													"type": "Expression"
+												}
+											}
 										}
 									]
 								}
@@ -607,7 +706,12 @@
 							{
 								"referenceName": "ds_muqseed_tgt",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"Table_Name": {
+										"value": "@pipeline().parameters.tablename",
+										"type": "Expression"
+									}
+								}
 							}
 						]
 					}
@@ -780,12 +884,20 @@
 					"referenceName": "ls_muq",
 					"type": "LinkedServiceReference"
 				},
+				"parameters": {
+					"Table_Name": {
+						"type": "String"
+					}
+				},
 				"annotations": [],
 				"type": "AzureSqlTable",
 				"schema": [],
 				"typeProperties": {
 					"schema": "dbo",
-					"table": "recipe_ingredients_m"
+					"table": {
+						"value": "@dataset().Table_Name",
+						"type": "Expression"
+					}
 				}
 			},
 			"dependsOn": [
