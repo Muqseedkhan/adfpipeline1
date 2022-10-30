@@ -3,20 +3,11 @@
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ls_muq",
-			"type": "LinkedServiceReference",
-			"parameters": {
-				"databasename": {
-					"value": "@dataset().Databasename1",
-					"type": "Expression"
-				}
-			}
+			"type": "LinkedServiceReference"
 		},
 		"parameters": {
 			"Table_Name": {
 				"type": "String"
-			},
-			"Databasename1": {
-				"type": "string"
 			}
 		},
 		"annotations": [],
