@@ -5,12 +5,20 @@
 			"referenceName": "ls_muq",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"dataset": {
+				"type": "String"
+			}
+		},
 		"annotations": [],
 		"type": "AzureSqlTable",
 		"schema": [],
 		"typeProperties": {
 			"schema": "dbo",
-			"table": "recipe_ingredients_m"
+			"table": {
+				"value": "@dataset().dataset",
+				"type": "Expression"
+			}
 		}
 	}
 }
