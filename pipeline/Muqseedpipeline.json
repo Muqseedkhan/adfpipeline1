@@ -45,7 +45,7 @@
 								"type": "Expression"
 							},
 							"ptablename": {
-								"value": "@activity('Lookup1').output.value",
+								"value": "@pipeline().parameters.ptablename",
 								"type": "Expression"
 							}
 						}
@@ -61,7 +61,7 @@
 								"type": "Expression"
 							},
 							"ptablename": {
-								"value": "@concat(activity('Lookup1').output.value,'_tgt')",
+								"value": "@concat(pipeline().parameters.ptablename,'_tgt')",
 								"type": "Expression"
 							}
 						}
