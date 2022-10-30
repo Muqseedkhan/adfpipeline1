@@ -1,0 +1,33 @@
+{
+	"name": "AZURE_SQL_Param",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "sql_db_param",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"database": {
+					"value": "@dataset().Databasename",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"Databasename": {
+				"type": "string"
+			},
+			"Tablename": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": {
+				"value": "@dataset().Tablename",
+				"type": "Expression"
+			}
+		}
+	}
+}
