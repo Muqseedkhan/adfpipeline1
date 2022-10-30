@@ -45,7 +45,7 @@
 								"type": "Expression"
 							},
 							"ptablename": {
-								"value": "@pipeline().parameters.Tablename",
+								"value": "@activity('Lookup1').output.value",
 								"type": "Expression"
 							}
 						}
@@ -61,7 +61,7 @@
 								"type": "Expression"
 							},
 							"ptablename": {
-								"value": "@concat(pipeline().parameters.Tablename,'_tgt')",
+								"value": "@concat(activity('Lookup1').output.value,'_tgt')",
 								"type": "Expression"
 							}
 						}
@@ -70,10 +70,10 @@
 			}
 		],
 		"parameters": {
-			"Tablename": {
+			"Databsename2": {
 				"type": "string"
 			},
-			"Databsename2": {
+			"ptablename": {
 				"type": "string"
 			}
 		},
