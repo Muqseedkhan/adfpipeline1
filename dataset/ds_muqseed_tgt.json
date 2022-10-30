@@ -25,7 +25,7 @@
 		"typeProperties": {
 			"schema": "dbo",
 			"table": {
-				"value": "@dataset().Databasename1",
+				"value": "@dataset().Table_Name",
 				"type": "Expression"
 			}
 		}
