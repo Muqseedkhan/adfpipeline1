@@ -90,7 +90,13 @@
 				"outputs": [
 					{
 						"referenceName": "ds_muqseed_tgt",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"Table_Name": {
+								"value": "@pipeline().parameters.tablename",
+								"type": "Expression"
+							}
+						}
 					}
 				]
 			}

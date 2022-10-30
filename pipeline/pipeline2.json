@@ -104,7 +104,13 @@
 							"outputs": [
 								{
 									"referenceName": "ds_muqseed_tgt",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"Table_Name": {
+											"value": "@item()",
+											"type": "Expression"
+										}
+									}
 								}
 							]
 						}

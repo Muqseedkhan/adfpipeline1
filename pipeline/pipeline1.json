@@ -45,11 +45,22 @@
 				"outputs": [
 					{
 						"referenceName": "ds_muqseed_tgt",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"Table_Name": {
+								"value": "@pipeline().parameters.test",
+								"type": "Expression"
+							}
+						}
 					}
 				]
 			}
 		],
+		"parameters": {
+			"test": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
 		"lastPublishTime": "2022-10-19T03:00:46Z"
 	},
