@@ -69,18 +69,35 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "ds_adls2_src",
-						"type": "DatasetReference"
+						"referenceName": "ds_adls_src_paramter",
+						"type": "DatasetReference",
+						"parameters": {
+							"param2": {
+								"value": "@pipeline().parameters.FIlename",
+								"type": "Expression"
+							}
+						}
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "ds_adls2_src",
-						"type": "DatasetReference"
+						"referenceName": "ds_adls_src_paramter",
+						"type": "DatasetReference",
+						"parameters": {
+							"param2": {
+								"value": "@concat(pipeline().parameters.FIlename,'_system')",
+								"type": "Expression"
+							}
+						}
 					}
 				]
 			}
 		],
+		"parameters": {
+			"FIlename": {
+				"type": "string"
+			}
+		},
 		"annotations": []
 	}
 }
