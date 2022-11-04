@@ -1042,7 +1042,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/systemvariable')]",
+			"name": "[concat(parameters('factoryName'), '/pl_systemvariable')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -1095,16 +1095,6 @@
 							"enableStaging": false,
 							"translator": {
 								"type": "TabularTranslator",
-								"mappings": [
-									{
-										"source": {
-											"ordinal": 1
-										},
-										"sink": {
-											"ordinal": 1
-										}
-									}
-								],
 								"typeConversion": true,
 								"typeConversionSettings": {
 									"allowDataTruncation": true,
@@ -1114,16 +1104,26 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "ds_adls2_src",
+								"referenceName": "ds_adls_src_paramter",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"param2": {
+										"value": "@pipeline().parameters.FIlename",
+										"type": "Expression"
+									}
+								}
 							}
 						],
 						"outputs": [
 							{
-								"referenceName": "ds_adls2_src",
+								"referenceName": "ds_adls_src_paramter",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"param2": {
+										"value": "@concat(pipeline().parameters.FIlename,'_system')",
+										"type": "Expression"
+									}
+								}
 							}
 						]
 					}
@@ -1132,10 +1132,15 @@
 					"elapsedTimeMetric": {},
 					"cancelAfter": {}
 				},
+				"parameters": {
+					"FIlename": {
+						"type": "string"
+					}
+				},
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/ds_adls2_src')]"
+				"[concat(variables('factoryId'), '/datasets/ds_adls_src_paramter')]"
 			]
 		}
 	]
