@@ -27,6 +27,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'ls_muq'"
 		},
+		"sql_db_param_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'sql_db_param'"
+		},
 		"ls_adls_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://storagemuqseed.dfs.core.windows.net/"
@@ -106,6 +110,62 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/sql_db_param')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"parameters": {
+					"database": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('sql_db_param_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AZURE_SQL_Param')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "sql_db_param",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"database": {
+							"value": "@dataset().Databasename",
+							"type": "Expression"
+						}
+					}
+				},
+				"parameters": {
+					"Databasename": {
+						"type": "string"
+					},
+					"ptablename": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": {
+						"value": "@dataset().ptablename",
+						"type": "Expression"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/sql_db_param')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/ds_Azuresql')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -140,7 +200,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileName": "muqtest.csv",
+						"fileName": "muqtest_systemvariable.csv",
 						"folderPath": "input",
 						"fileSystem": "salesproject"
 					},
@@ -318,11 +378,15 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "ds_muqseed_tgt",
+								"referenceName": "AZURE_SQL_Param",
 								"type": "DatasetReference",
 								"parameters": {
-									"Table_Name": {
-										"value": "@pipeline().parameters.Tablename",
+									"Databasename": {
+										"value": "@pipeline().parameters.Databsename2",
+										"type": "Expression"
+									},
+									"ptablename": {
+										"value": "@pipeline().parameters.ptablename",
 										"type": "Expression"
 									}
 								}
@@ -330,11 +394,15 @@
 						],
 						"outputs": [
 							{
-								"referenceName": "ds_muqseed_tgt",
+								"referenceName": "AZURE_SQL_Param",
 								"type": "DatasetReference",
 								"parameters": {
-									"Table_Name": {
-										"value": "@concat(pipeline().parameters.Tablename,'_tgt')",
+									"Databasename": {
+										"value": "@pipeline().parameters.Databsename2",
+										"type": "Expression"
+									},
+									"ptablename": {
+										"value": "@concat(pipeline().parameters.ptablename,'_tgt')",
 										"type": "Expression"
 									}
 								}
@@ -347,17 +415,17 @@
 					"cancelAfter": {}
 				},
 				"parameters": {
-					"Tablename": {
+					"Databsename2": {
 						"type": "string"
 					},
-					"Databsename2": {
+					"ptablename": {
 						"type": "string"
 					}
 				},
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/ds_muqseed_tgt')]"
+				"[concat(variables('factoryId'), '/datasets/AZURE_SQL_Param')]"
 			]
 		},
 		{
@@ -971,6 +1039,103 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/ds_ali_sql')]",
 				"[concat(variables('factoryId'), '/datasets/ds_muqseed_tgt')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/systemvariable')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"additionalColumns": [
+									{
+										"name": "PipelineName",
+										"value": {
+											"value": "@pipeline().Pipeline",
+											"type": "Expression"
+										}
+									}
+								],
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings",
+									"copyBehavior": "MergeFiles"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"ordinal": 1
+										},
+										"sink": {
+											"ordinal": 1
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ds_adls2_src",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ds_adls2_src",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_adls2_src')]"
 			]
 		}
 	]

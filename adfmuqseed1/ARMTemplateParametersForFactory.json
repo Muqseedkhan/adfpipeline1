@@ -20,6 +20,9 @@
 		"ls_muq_connectionString": {
 			"value": ""
 		},
+		"sql_db_param_connectionString": {
+			"value": ""
+		},
 		"ls_adls_properties_typeProperties_url": {
 			"value": "https://storagemuqseed.dfs.core.windows.net/"
 		}
