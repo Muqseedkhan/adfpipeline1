@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "muqtest.csv",
+				"fileName": "muqtest_systemvariable.csv",
 				"folderPath": "input",
 				"fileSystem": "salesproject"
 			},
