@@ -1069,6 +1069,13 @@
 											"value": "@pipeline().Pipeline",
 											"type": "Expression"
 										}
+									},
+									{
+										"name": "PIpelineRunID",
+										"value": {
+											"value": "@pipeline().RunId",
+											"type": "Expression"
+										}
 									}
 								],
 								"storeSettings": {
